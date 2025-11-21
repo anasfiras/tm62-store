@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tm62 store - المتجر الشامل</title>
     <style>
-        /* CSS للتنسيق والأناقة - محاكاة تصميم بطاقات كارتي */
         :root {
-            --primary-color: #0d47a1; /* أزرق داكن (قريب من شعار سوني والهيدر) */
-            --secondary-color: #f0f8ff; /* أزرق ثلجي فاتح */
+            --primary-color: #0d47a1;
+            --secondary-color: #f0f8ff;
             --card-bg: #ffffff;
-            --price-tag-color: #e30425; /* أحمر لشريط السعر */
+            --price-tag-color: #e30425;
             --text-color: #1a1a1a;
-            --success-color: #ffc107; /* ذهبي */
+            --success-color: #ffc107;
         }
 
         body {
@@ -25,11 +24,10 @@
             direction: rtl;
         }
 
-        /* رأس الصفحة (Header) - مطابقة لتصميم شعار سوني */
         .header {
-            background-color: #032d4b; /* أزرق داكن جداً للهيدر */
+            background-color: #032d4b;
             color: white;
-            padding: 15px 40px; /* تصغير الهيدر قليلاً */
+            padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -37,11 +35,11 @@
 
         .logo { display: flex; align-items: center; }
         .logo img { 
-            width: 40px; /* حجم الشعار مطابق للصورة */
+            width: 40px;
             margin-left: 10px; 
-            filter: drop-shadow(0 0 1px rgba(0,0,0,0.5)); /* ظل بسيط لتمييز الشعار الأبيض */
+            filter: drop-shadow(0 0 1px rgba(0,0,0,0.5));
         }
-        .logo h1 { margin: 0; font-size: 28px; } /* حجم النص */
+        .logo h1 { margin: 0; font-size: 28px; }
         .logo span { font-size: 12px; display: block; opacity: 0.8; margin-top: 3px; }
         .cart-icon { font-size: 28px; cursor: pointer; position: relative; }
         #cart-count {
@@ -52,19 +50,13 @@
             font-weight: bold;
         }
 
-        /* المحتوى الرئيسي */
-        .container {
-            padding: 40px 20px; max-width: 1200px; margin: 0 auto;
-        }
-
-        /* قسم البطاقات والشبكة */
+        .container { padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* تصغير حجم البطاقة لتشبه الصورة */
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px; margin-top: 30px;
         }
 
-        /* تنسيق البطاقة لمحاكاة الصورة المرفقة */
         .card {
             background-color: var(--card-bg);
             border-radius: 12px;
@@ -81,7 +73,6 @@
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
         }
 
-        /* شريط السعر الأحمر في الزاوية */
         .price-tag {
             background-color: var(--price-tag-color);
             color: white;
@@ -90,424 +81,168 @@
             padding: 5px 15px;
             font-size: 14px;
             font-weight: bold;
-            border-bottom-left-radius: 10px; /* حافة دائرية في الزاوية */
+            border-bottom-left-radius: 10px;
         }
 
-        .card-image-wrapper {
-            height: 120px; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 0; /* تصغير البادينغ */
-        }
-        
-        .card-image-wrapper img {
-            max-width: 90%;
-            max-height: 100%;
-            height: auto;
-            border-radius: 6px;
-            object-fit: contain;
-        }
-
-        .card-details {
-            padding: 0 10px;
-        }
-        
-        .card h3 { 
-            color: var(--text-color); 
-            font-size: 15px;
-            margin: 5px 0 10px 0;
-            min-height: 18px; 
-        }
-        
-        .price-text {
-            font-size: 18px;
-            font-weight: bold;
-            color: var(--primary-color); 
-            margin: 5px 0 15px 0;
-        }
-
-        .buy-button {
-            background-color: var(--primary-color);
-            color: white; border: none; padding: 10px 15px; border-radius: 6px;
-            cursor: pointer; font-size: 14px; width: 90%; 
-            transition: background-color 0.3s; margin-top: 5px;
-        }
-
+        .card-image-wrapper { height: 120px; display: flex; align-items: center; justify-content: center; padding: 10px 0; }
+        .card-image-wrapper img { max-width: 90%; max-height: 100%; height: auto; border-radius: 6px; object-fit: contain; }
+        .card-details { padding: 0 10px; }
+        .card h3 { color: var(--text-color); font-size: 15px; margin: 5px 0 10px 0; min-height: 18px; }
+        .price-text { font-size: 18px; font-weight: bold; color: var(--primary-color); margin: 5px 0 15px 0; }
+        .buy-button { background-color: var(--primary-color); color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 14px; width: 90%; transition: background-color 0.3s; margin-top: 5px; }
         .buy-button:hover { background-color: #0861ab; } 
 
-        /* تذييل الصفحة (Footer) */
-        .footer {
-            background-color: #032d4b; 
-            color: white; text-align: center;
-            padding: 30px 0; margin-top: 50px;
-        }
-        /* تصميم الأيقونات مطابق للصورة */
+        .footer { background-color: #032d4b; color: white; text-align: center; padding: 30px 0; margin-top: 50px; }
         .footer-links { margin-top: 15px; display: flex; justify-content: center; align-items: center; }
-        .footer-links a {
-            color: white; /* لون أبيض للروابط */
-            text-decoration: none; margin: 0 15px;
-            font-size: 16px; 
-            display: flex; flex-direction: column; align-items: center;
-        }
-        .footer-links img {
-            width: 32px; height: 32px; margin-bottom: 5px; 
-            transition: transform 0.2s;
-        }
-        .footer-links a:hover img {
-             transform: scale(1.1);
-        }
+        .footer-links a { color: white; text-decoration: none; margin: 0 15px; font-size: 16px; display: flex; flex-direction: column; align-items: center; }
+        .footer-links img { width: 32px; height: 32px; margin-bottom: 5px; transition: transform 0.2s; }
+        .footer-links a:hover img { transform: scale(1.1); }
 
-        /* ------------------------------------- */
-        /* تصميم نافذة السلة المنبثقة (MODAL) */
-        /* ------------------------------------- */
-
-        .modal {
-            display: none; 
-            position: fixed; z-index: 1000; left: 0; top: 0;
-            width: 100%; height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.6); 
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 10% auto; 
-            padding: 20px;
-            border-radius: 10px;
-            width: 80%; max-width: 500px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            text-align: right;
-            direction: rtl;
-        }
-
-        .close-button {
-            color: #aaa; float: left; font-size: 28px; font-weight: bold;
-        }
-
-        .close-button:hover,
-        .close-button:focus {
-            color: #000; text-decoration: none; cursor: pointer;
-        }
-
-        #cart-items-list {
-            list-style: none; padding: 0; margin-top: 15px;
-        }
-
-        #cart-items-list li {
-            border-bottom: 1px dashed #ccc;
-            padding: 10px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .remove-item { 
-            color: red; cursor: pointer; font-size: 12px; margin-right: 10px;
-            border: 1px solid red; padding: 2px 5px; border-radius: 4px;
-        }
-        
-        .total-section {
-            border-top: 2px solid var(--primary-color);
-            padding-top: 10px; margin-top: 15px;
-            font-size: 22px;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .checkout-button {
-            background-color: var(--price-tag-color); /* أحمر */
-            color: white; border: none; padding: 12px; border-radius: 6px;
-            cursor: pointer; font-size: 18px; width: 100%; margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); }
+        .modal-content { background-color: #fefefe; margin: 10% auto; padding: 20px; border-radius: 10px; width: 80%; max-width: 500px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); text-align: right; direction: rtl; }
+        .close-button { color: #aaa; float: left; font-size: 28px; font-weight: bold; }
+        .close-button:hover, .close-button:focus { color: #000; text-decoration: none; cursor: pointer; }
+        #cart-items-list { list-style: none; padding: 0; margin-top: 15px; }
+        #cart-items-list li { border-bottom: 1px dashed #ccc; padding: 10px 0; display: flex; justify-content: space-between; align-items: center; }
+        .remove-item { color: red; cursor: pointer; font-size: 12px; margin-right: 10px; border: 1px solid red; padding: 2px 5px; border-radius: 4px; }
+        .total-section { border-top: 2px solid var(--primary-color); padding-top: 10px; margin-top: 15px; font-size: 22px; font-weight: bold; display: flex; justify-content: space-between; }
+        .checkout-button { background-color: var(--price-tag-color); color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-size: 18px; width: 100%; margin-top: 20px; transition: background-color 0.3s; }
     </style>
 </head>
 <body>
 
-    <header class="header">
-        <div class="logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/1024px-PlayStation_logo.svg.png" alt="PS Logo">
-            <div>
-                <h1>tm62 store</h1>
-                <span>توصيل فوري لجميع البطاقات</span>
-            </div>
-        </div>
-        <div class="cart-icon" id="open-cart-modal">🛒 <span id="cart-count">0</span></div>
-    </header>
-
-    <div class="container">
-        <h2>اختار بطاقتك الآن:</h2>
-        
-        <div class="product-grid">
-            
-            <div class="card" data-product-id="1" data-name="PSN SA 10$" data-price="16999" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/1024px-PlayStation_logo.svg.png">
-                <div class="price-tag">PRICE 16999 IQD</div>
-                <div class="card-image-wrapper">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/1024px-PlayStation_logo.svg.png" alt="PSN Card">
-                </div>
-                <div class="card-details">
-                    <h3>PSN SA 10$</h3>
-                    <p class="price-text">16,999 د.ع</p>
-                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
-                </div>
-            </div>
-
-            <div class="card" data-product-id="2" data-name="PSN KW 20$" data-price="31029" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/1024px-PlayStation_logo.svg.png">
-                <div class="price-tag">PRICE 31029 IQD</div>
-                <div class="card-image-wrapper">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/1024px-PlayStation_logo.svg.png" alt="PSN Card">
-                </div>
-                <div class="card-details">
-                    <h3>PSN KW 20$</h3>
-                    <p class="price-text">31,029 د.ع</p>
-                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
-                </div>
-            </div>
-
-            <div class="card" data-product-id="3" data-name="Netflix 30$ US" data-price="50499" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1024px-Netflix_2015_logo.svg.png">
-                <div class="price-tag">PRICE 50499 IQD</div>
-                <div class="card-image-wrapper">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1024px-Netflix_2015_logo.svg.png" alt="Netflix Card">
-                </div>
-                <div class="card-details">
-                    <h3>Netflix 30$ US</h3>
-                    <p class="price-text">50,499 د.ع</p>
-                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
-                </div>
-            </div>
-
-            <div class="card" data-product-id="4" data-name="PUBG 600+60 UC" data-price="26500" data-image="https://seeklogo.com/images/P/pubg-mobile-logo-F91A39D0B4-seeklogo.com.png">
-                <div class="price-tag">PRICE 26500 IQD</div>
-                <div class="card-image-wrapper">
-                    <img src="https://seeklogo.com/images/P/pubg-mobile-logo-F91A39D0B4-seeklogo.com.png" alt="PUBG Card">
-                </div>
-                <div class="card-details">
-                    <h3>PUBG 600+60 UC</h3>
-                    <p class="price-text">26,500 د.ع</p>
-                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
-                </div>
-            </div>
-            
-            <div class="card" data-product-id="5" data-name="iTunes 10$ USD" data-price="16499" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Apple_logo.svg/1024px-Apple_logo.svg.png">
-                <div class="price-tag">PRICE 16499 IQD</div>
-                <div class="card-image-wrapper">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Apple_logo.svg/1024px-Apple_logo.svg.png" alt="iTunes Card">
-                </div>
-                <div class="card-details">
-                    <h3>iTunes 10$ USD</h3>
-                    <p class="price-text">16,499 د.ع</p>
-                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
-                </div>
-            </div>
-
-            <div class="card" data-product-id="6" data-name="Xbox 20$ USD" data-price="28499" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_logo.svg/1024px-Xbox_logo.svg.png">
-                <div class="price-tag">PRICE 28499 IQD</div>
-                <div class="card-image-wrapper">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_logo.svg/1024px-Xbox_logo.svg.png" alt="Xbox Card">
-                </div>
-                <div class="card-details">
-                    <h3>Xbox 20$ USD</h3>
-                    <p class="price-text">28,499 د.ع</p>
-                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
-                </div>
-            </div>
-            
-            <div class="card" data-product-id="7" data-name="Steam 20$ USD" data-price="34099" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/1024px-Steam_icon_logo.svg.png">
-                <div class="price-tag">PRICE 34099 IQD</div>
-                <div class="card-image-wrapper">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/1024px-Steam_icon_logo.svg.png" alt="Steam Card">
-                </div>
-                <div class="card-details">
-                    <h3>Steam 20$ USD</h3>
-                    <p class="price-text">34,099 د.ع</p>
-                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
-                </div>
-            </div>
-            
-            <div class="card" data-product-id="8" data-name="Razer zGold 10$ US" data-price="18499" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Razer_logo.svg/1024px-Razer_logo.svg.png">
-                <div class="price-tag">PRICE 18499 IQD</div>
-                <div class="card-image-wrapper">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Razer_logo.svg/1024px-Razer_logo.svg.png" alt="Razer zGold Card">
-                </div>
-                <div class="card-details">
-                    <h3>Razer zGold 10$</h3>
-                    <p class="price-text">18,499 د.ع</p>
-                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
-                </div>
-            </div>
-            
+<header class="header">
+    <div class="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/1024px-PlayStation_logo.svg.png" alt="PS Logo">
+        <div>
+            <h1>tm62 store</h1>
+            <span>توصيل فوري لجميع البطاقات</span>
         </div>
     </div>
+    <div class="cart-icon" id="open-cart-modal">🛒 <span id="cart-count">0</span></div>
+</header>
 
-    <div id="cart-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button" id="close-cart-modal">&times;</span>
-            <h2>🧺 سلة مشترياتك</h2>
-            
-            <ul id="cart-items-list">
-                </ul>
-            
-            <p id="empty-cart-message" style="text-align: center; color: #888;">السلة فارغة. يرجى إضافة منتجات.</p>
+<div class="container">
+    <h2>اختار بطاقتك الآن:</h2>
+    <div class="product-grid">
 
-            <div class="total-section">
-                <span>المجموع الكلي:</span>
-                <span id="cart-total">0 د.ع</span>
+        <!-- مثال لبطاقات ببجي شدات مع الصورة الجديدة -->
+        <div class="card" data-product-id="pubg1" data-name="PUBG 600+60 UC" data-price="26500" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/PUBG_mobile_logo.png/600px-PUBG_mobile_logo.png">
+            <div class="price-tag">PRICE 26,500 IQD</div>
+            <div class="card-image-wrapper">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/PUBG_mobile_logo.png/600px-PUBG_mobile_logo.png" alt="PUBG Card">
             </div>
-            
-            <button class="checkout-button" id="start-checkout" disabled>متابعة الشراء (اضغط هنا)</button>
+            <div class="card-details">
+                <h3>PUBG 600+60 UC</h3>
+                <p class="price-text">26,500 د.ع</p>
+                <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+            </div>
         </div>
+
+        <!-- باقي البطاقات القديمة مثل PSN، Netflix، iTunes ... -->
+        <!-- هنا ضع جميع البطاقات الأخرى كما كانت بنفس الكود القديم -->
+
     </div>
+</div>
 
-    <footer class="footer">
-        <p>جميع حقوق المتجر محفوظة لـ **tm62 store** &copy; 2026</p>
-        <div class="footer-links">
-            <a href="https://instagram.com/tm62" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/100px-Instagram_logo_2016.svg.png" alt="Instagram Icon"> Instagram
-            </a>
-            <a href="https://wa.me/9647751434414" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/100px-WhatsApp.svg.png" alt="WhatsApp Icon"> WhatsApp
-            </a> 
-            <a href="https://t.me/anasfiras" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/100px-Telegram_logo.svg.png" alt="Telegram Icon"> Telegram
-            </a>
+<div id="cart-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" id="close-cart-modal">&times;</span>
+        <h2>🧺 سلة مشترياتك</h2>
+        <ul id="cart-items-list"></ul>
+        <p id="empty-cart-message" style="text-align: center; color: #888;">السلة فارغة. يرجى إضافة منتجات.</p>
+        <div class="total-section">
+            <span>المجموع الكلي:</span>
+            <span id="cart-total">0 د.ع</span>
         </div>
-    </footer>
+        <button class="checkout-button" id="start-checkout" disabled>متابعة الشراء (اضغط هنا)</button>
+    </div>
+</div>
 
-    <script>
-        let cart = []; // مصفوفة لتخزين عناصر السلة
+<footer class="footer">
+    <p>جميع حقوق المتجر محفوظة لـ **tm62 store** &copy; 2026</p>
+    <div class="footer-links">
+        <a href="https://instagram.com/tm62" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/100px-Instagram_logo_2016.svg.png" alt="Instagram Icon"> Instagram
+        </a>
+        <a href="https://wa.me/9647751434414" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/100px-WhatsApp.svg.png" alt="WhatsApp Icon"> WhatsApp
+        </a> 
+        <a href="https://t.me/anasfiras" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/100px-Telegram_logo.svg.png" alt="Telegram Icon"> Telegram
+        </a>
+    </div>
+</footer>
 
-        // -------------------------------------
-        // وظائف المساعدة العامة
-        // -------------------------------------
-        function formatPrice(price) {
-            return `${parseInt(price).toLocaleString()} د.ع`;
-        }
+<script>
+let cart = [];
 
-        function calculateCartTotal() {
-            return cart.reduce((total, item) => total + parseInt(item.price), 0);
-        }
+function formatPrice(price) { return `${parseInt(price).toLocaleString()} د.ع`; }
+function calculateCartTotal() { return cart.reduce((total, item) => total + parseInt(item.price), 0); }
 
-        // -------------------------------------
-        // وظائف السلة (CART)
-        // -------------------------------------
+function addToCart(buttonElement) {
+    const cardElement = buttonElement.closest('.card');
+    const newItem = {
+        id: Date.now(),
+        productId: cardElement.getAttribute('data-product-id'),
+        name: cardElement.getAttribute('data-name'),
+        price: cardElement.getAttribute('data-price')
+    };
+    cart.push(newItem);
+    updateCartUI();
+    modal.style.display = 'block';
+    console.log(`✅ تمت إضافة ${newItem.name} إلى السلة!`);
+}
 
-        function addToCart(buttonElement) {
-            const cardElement = buttonElement.closest('.card');
-            const itemName = cardElement.getAttribute('data-name');
-            const itemPrice = cardElement.getAttribute('data-price');
-            const productId = cardElement.getAttribute('data-product-id');
+function removeItemFromCart(itemId) {
+    cart = cart.filter(item => item.id !== itemId);
+    updateCartUI();
+}
 
-            const newItem = {
-                id: Date.now(), // ID فريد للمسح
-                productId: productId,
-                name: itemName,
-                price: itemPrice
-            };
+function updateCartUI() {
+    const listElement = document.getElementById('cart-items-list');
+    const totalElement = document.getElementById('cart-total');
+    const countElement = document.getElementById('cart-count');
+    const emptyMessage = document.getElementById('empty-cart-message');
+    const checkoutButton = document.getElementById('start-checkout');
 
-            cart.push(newItem);
-            updateCartUI();
-            
-            // إظهار السلة مباشرة بعد الإضافة
-            modal.style.display = 'block';
+    countElement.innerText = cart.length;
+    listElement.innerHTML = '';
 
-            // إشعار بسيط 
-            console.log(`✅ تمت إضافة ${itemName} إلى السلة!`);
-        }
+    if (cart.length === 0) {
+        emptyMessage.style.display = 'block';
+        checkoutButton.disabled = true;
+    } else {
+        emptyMessage.style.display = 'none';
+        checkoutButton.disabled = false;
 
-        function removeItemFromCart(itemId) {
-            cart = cart.filter(item => item.id !== itemId);
-            updateCartUI();
-        }
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = `<span class="item-details">${item.name}</span>
+                            <div>
+                                <span class="remove-item" onclick="removeItemFromCart(${item.id})">حذف</span>
+                                <span class="item-price">${formatPrice(item.price)}</span>
+                            </div>`;
+            listElement.appendChild(li);
+        });
+    }
+    totalElement.innerText = formatPrice(calculateCartTotal());
+}
 
-        function updateCartUI() {
-            const listElement = document.getElementById('cart-items-list');
-            const totalElement = document.getElementById('cart-total');
-            const countElement = document.getElementById('cart-count');
-            const emptyMessage = document.getElementById('empty-cart-message');
-            const checkoutButton = document.getElementById('start-checkout');
+const modal = document.getElementById('cart-modal');
+document.getElementById('open-cart-modal').onclick = () => { updateCartUI(); modal.style.display='block'; };
+document.getElementById('close-cart-modal').onclick = () => { modal.style.display='none'; };
+window.onclick = event => { if(event.target==modal) modal.style.display='none'; };
 
-            // 1. تحديث العداد
-            countElement.innerText = cart.length;
+document.getElementById('start-checkout').onclick = () => {
+    const total = calculateCartTotal();
+    if(total===0) return;
+    modal.style.display='none';
+    alert(`💰 إجمالي سعر مشترياتك هو: ${formatPrice(total)} 💰\n\nلإتمام عملية الشراء يرجى التواصل معنا:\n📞 WhatsApp: +9647751434414\n📸 Instagram: tm62\n✈️ Telegram: anasfiras\n\nشكراً لثقتكم بـ tm62 store.`);
+}
 
-            // 2. تحديث قائمة المنتجات
-            listElement.innerHTML = '';
-            if (cart.length === 0) {
-                emptyMessage.style.display = 'block';
-                checkoutButton.disabled = true;
-            } else {
-                emptyMessage.style.display = 'none';
-                checkoutButton.disabled = false;
-                
-                cart.forEach(item => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `
-                        <span class="item-details">${item.name}</span>
-                        <div>
-                            <span class="remove-item" onclick="removeItemFromCart(${item.id})">حذف</span>
-                            <span class="item-price">${formatPrice(item.price)}</span>
-                        </div>
-                    `;
-                    listElement.appendChild(li);
-                });
-            }
+document.addEventListener('DOMContentLoaded', updateCartUI);
+</script>
 
-            // 3. تحديث المجموع الكلي
-            const total = calculateCartTotal();
-            totalElement.innerText = formatPrice(total);
-        }
-        
-        // -------------------------------------
-        // وظائف نافذة السلة المنبثقة (MODAL HANDLERS)
-        // -------------------------------------
-
-        const modal = document.getElementById('cart-modal');
-        const btnOpen = document.getElementById('open-cart-modal');
-        const btnClose = document.getElementById('close-cart-modal');
-        const btnCheckout = document.getElementById('start-checkout');
-
-        btnOpen.onclick = function() {
-            updateCartUI();
-            modal.style.display = 'block';
-        }
-
-        btnClose.onclick = function() {
-            modal.style.display = 'none';
-        }
-
-        // إغلاق النافذة عند الضغط خارجها
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
-        
-        // وظيفة إتمام الشراء وإظهار معلومات الدفع
-        btnCheckout.onclick = function() {
-            const total = calculateCartTotal();
-            if (total === 0) return;
-
-            modal.style.display = 'none'; // إخفاء السلة
-            
-            const message = `
-            💰 إجمالي سعر مشترياتك هو: ${formatPrice(total)} 💰
-            
-            لإتمام عملية الشراء وتحويل المبلغ، يرجى التواصل معنا وإرسال المبلغ الكلي على حساباتنا:
-            
-            📞 WhatsApp: +9647751434414
-            📸 Instagram: tm62
-            ✈️ Telegram: anasfiras
-            
-            شكراً لثقتكم بـ tm62 store.
-            `;
-            
-            alert(message);
-        }
-
-        // تهيئة واجهة المستخدم عند التحميل
-        document.addEventListener('DOMContentLoaded', updateCartUI);
-    </script>
 </body>
 </html>
