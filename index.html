@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tm62 store - المتجر الشامل</title>
     <style>
+        /* CSS للتنسيق والأناقة - محاكاة تصميم بطاقات كارتي */
         :root {
-            --primary-color: #0d47a1;
-            --secondary-color: #f0f8ff;
+            --primary-color: #0d47a1; /* أزرق داكن */
+            --secondary-color: #f0f8ff; /* أزرق ثلجي فاتح */
             --card-bg: #ffffff;
-            --price-tag-color: #e30425;
+            --price-tag-color: #e30425; /* أحمر لشريط السعر */
             --text-color: #1a1a1a;
+            --success-color: #ffc107; /* ذهبي */
         }
 
         body {
@@ -23,205 +25,738 @@
             direction: rtl;
         }
 
+        /* رأس الصفحة (Header) */
         .header {
-            background-color: #032d4b;
+            background-color: #032d4b; /* أزرق داكن جداً للهيدر */
             color: white;
-            padding: 15px 40px;
+            padding: 15px 40px; 
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo { display: flex; align-items: center; }
-        .logo img { width: 40px; margin-left: 10px; filter: drop-shadow(0 0 1px rgba(0,0,0,0.5)); }
-        .logo h1 { margin: 0; font-size: 28px; }
+        .logo img { 
+            width: 40px; 
+            margin-left: 10px; 
+            filter: drop-shadow(0 0 1px rgba(0,0,0,0.5));
+        }
+        .logo h1 { margin: 0; font-size: 28px; } 
         .logo span { font-size: 12px; display: block; opacity: 0.8; margin-top: 3px; }
         .cart-icon { font-size: 28px; cursor: pointer; position: relative; }
-        #cart-count { background-color: var(--price-tag-color); color: white; border-radius: 50%; padding: 2px 7px; font-size: 14px; position: absolute; top: -10px; right: -10px; font-weight: bold; }
+        #cart-count {
+            background-color: var(--price-tag-color);
+            color: white; 
+            border-radius: 50%;
+            padding: 2px 7px; font-size: 14px; position: absolute; top: -10px; right: -10px;
+            font-weight: bold;
+        }
 
-        .container { padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 30px; }
+        /* المحتوى الرئيسي */
+        .container {
+            padding: 40px 20px;
+            max-width: 1400px; margin: 0 auto;
+        }
 
+        /* قسم البطاقات والشبكة */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+            gap: 15px; margin-top: 30px;
+        }
+
+        /* تنسيق البطاقة */
         .card {
             background-color: var(--card-bg);
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
+            position: relative; 
+            overflow: hidden; 
             text-align: center;
             padding-bottom: 15px;
             transition: transform 0.2s;
         }
-        .card:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); }
+        
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
 
-        .price-tag { background-color: var(--price-tag-color); color: white; position: absolute; top: 0; right: 0; padding: 5px 15px; font-size: 14px; font-weight: bold; border-bottom-left-radius: 10px; }
+        /* شريط السعر الأحمر في الزاوية */
+        .price-tag {
+            background-color: var(--price-tag-color);
+            color: white;
+            position: absolute;
+            top: 0; right: 0;
+            padding: 5px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            border-bottom-left-radius: 10px; 
+            z-index: 10; /* لضمان ظهوره فوق الصورة */
+        }
 
-        .card-image-wrapper { height: 120px; display: flex; align-items: center; justify-content: center; padding: 10px 0; }
-        .card-image-wrapper img { max-width: 90%; max-height: 100%; height: auto; border-radius: 6px; object-fit: contain; }
+        .card-image-wrapper {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 0; 
+        }
+        
+        .card-image-wrapper img {
+            max-width: 90%;
+            max-height: 100%;
+            height: auto;
+            border-radius: 6px;
+            object-fit: contain;
+        }
 
-        .card-details { padding: 0 10px; }
-        .card h3 { color: var(--text-color); font-size: 15px; margin: 5px 0 10px 0; min-height: 18px; }
-        .price-text { font-size: 18px; font-weight: bold; color: var(--primary-color); margin: 5px 0 15px 0; }
-        .buy-button { background-color: var(--primary-color); color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 14px; width: 90%; transition: background-color 0.3s; margin-top: 5px; }
-        .buy-button:hover { background-color: #0861ab; }
+        .card-details {
+            padding: 0 10px;
+        }
+        
+        .card h3 { 
+            color: var(--text-color);
+            font-size: 15px;
+            margin: 5px 0 10px 0;
+            min-height: 18px; 
+        }
+        
+        .price-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary-color); 
+            margin: 5px 0 15px 0;
+        }
 
-        .footer { background-color: #032d4b; color: white; text-align: center; padding: 30px 0; margin-top: 50px; }
-        .footer-links { margin-top: 15px; display: flex; justify-content: center; align-items: center; }
-        .footer-links a { color: white; text-decoration: none; margin: 0 15px; font-size: 16px; display: flex; flex-direction: column; align-items: center; }
-        .footer-links img { width: 32px; height: 32px; margin-bottom: 5px; transition: transform 0.2s; }
-        .footer-links a:hover img { transform: scale(1.1); }
+        .buy-button {
+            background-color: var(--primary-color);
+            color: white; border: none; padding: 10px 15px; border-radius: 6px;
+            cursor: pointer; font-size: 14px; width: 90%; 
+            transition: background-color 0.3s; margin-top: 5px;
+        }
 
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); }
-        .modal-content { background-color: #fefefe; margin: 10% auto; padding: 20px; border-radius: 10px; width: 80%; max-width: 500px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); text-align: right; direction: rtl; }
-        .close-button { color: #aaa; float: left; font-size: 28px; font-weight: bold; }
-        .close-button:hover, .close-button:focus { color: #000; text-decoration: none; cursor: pointer; }
-        #cart-items-list { list-style: none; padding: 0; margin-top: 15px; }
-        #cart-items-list li { border-bottom: 1px dashed #ccc; padding: 10px 0; display: flex; justify-content: space-between; align-items: center; }
-        .remove-item { color: red; cursor: pointer; font-size: 12px; margin-right: 10px; border: 1px solid red; padding: 2px 5px; border-radius: 4px; }
-        .total-section { border-top: 2px solid var(--primary-color); padding-top: 10px; margin-top: 15px; font-size: 22px; font-weight: bold; display: flex; justify-content: space-between; }
-        .checkout-button { background-color: var(--price-tag-color); color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-size: 18px; width: 100%; margin-top: 20px; transition: background-color 0.3s; }
+        .buy-button:hover { background-color: #0861ab; } 
+
+        /* تذييل الصفحة (Footer) */
+        .footer {
+            background-color: #032d4b;
+            color: white; text-align: center;
+            padding: 30px 0; margin-top: 50px;
+        }
+        
+        .footer-links { margin-top: 15px;
+            display: flex; justify-content: center; align-items: center; }
+        .footer-links a {
+            color: white;
+            text-decoration: none; margin: 0 15px;
+            font-size: 16px; 
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .footer-links img {
+            width: 32px;
+            height: 32px; margin-bottom: 5px; 
+            transition: transform 0.2s;
+        }
+        .footer-links a:hover img {
+             transform: scale(1.1);
+        }
+
+        /* ------------------------------------- */
+        /* تصميم نوافذ MODALز (السلة والدفع) */
+        /* ------------------------------------- */
+
+        .modal {
+            display: none;
+            position: fixed; z-index: 1000; left: 0; top: 0;
+            width: 100%; height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; 
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%; max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            text-align: right;
+            direction: rtl;
+        }
+
+        .close-button {
+            color: #aaa;
+            float: left; font-size: 28px; font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #000;
+            text-decoration: none; cursor: pointer;
+        }
+
+        #cart-items-list {
+            list-style: none;
+            padding: 0; margin-top: 15px;
+        }
+
+        #cart-items-list li {
+            border-bottom: 1px dashed #ccc;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .remove-item { 
+            color: red;
+            cursor: pointer; font-size: 12px; margin-right: 10px;
+            border: 1px solid red; padding: 2px 5px; border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .remove-item:hover { background-color: rgba(255, 0, 0, 0.1); }
+        
+        .total-section {
+            border-top: 2px solid var(--primary-color);
+            padding-top: 10px; margin-top: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .checkout-button {
+            background-color: var(--price-tag-color);
+            color: white; border: none; padding: 12px; border-radius: 6px;
+            cursor: pointer; font-size: 18px; width: 100%; margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .checkout-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* تنسيق نافذة إرشادات الدفع */
+        .checkout-instructions h3 { 
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: 2px solid var(--success-color);
+            padding-bottom: 10px;
+        }
+        .checkout-instructions p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .checkout-instructions ul {
+            list-style: none;
+            padding: 0;
+        }
+        .checkout-instructions li {
+            background-color: var(--secondary-color);
+            margin-bottom: 8px;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .checkout-instructions li a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-right: 5px;
+        }
+        .checkout-instructions .close-checkout-button {
+            background-color: #333;
+        }
     </style>
 </head>
 <body>
 
-<header class="header">
-    <div class="logo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/1024px-PlayStation_logo.svg.png" alt="PS Logo">
-        <div>
-            <h1>tm62 store</h1>
-            <span>توصيل فوري لجميع البطاقات</span>
-        </div>
-    </div>
-    <div class="cart-icon" id="open-cart-modal">🛒 <span id="cart-count">0</span></div>
-</header>
-
-<div class="container">
-    <h2>اختار بطاقتك الآن:</h2>
-    <div class="product-grid">
-
-        <!-- مثال لكارد بطاقة -->
-        <div class="card" data-product-id="1" data-name="iTunes 10$ USD" data-price="16299" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Apple_logo.svg/1024px-Apple_logo.svg.png">
-            <div class="price-tag">PRICE 16,299 IQD</div>
-            <div class="card-image-wrapper">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Apple_logo.svg/1024px-Apple_logo.svg.png" alt="iTunes Card">
-            </div>
-            <div class="card-details">
-                <h3>iTunes 10$ USD</h3>
-                <p class="price-text">16,299 د.ع</p>
-                <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+    <header class="header">
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/1024px-PlayStation_logo.svg.png" alt="PS Logo">
+            <div>
+                <h1>tm62 store</h1>
+                <span>توصيل فوري لجميع البطاقات</span>
             </div>
         </div>
+        <div class="cart-icon" id="open-cart-modal">🛒 <span id="cart-count">0</span></div>
+    </header>
 
-        <!-- مثال آخر -->
-        <div class="card" data-product-id="2" data-name="Netflix 30$ US" data-price="50499" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1024px-Netflix_2015_logo.svg.png">
-            <div class="price-tag">PRICE 50,499 IQD</div>
-            <div class="card-image-wrapper">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1024px-Netflix_2015_logo.svg.png" alt="Netflix Card">
+    <div class="container">
+        <h2>اختار بطاقتك الآن:</h2>
+        
+        <div class="product-grid">
+            
+            <div class="card" data-product-id="1" data-name="PSN SA 10$" data-price="16999" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/1024px-PlayStation_logo.svg.png">
+                <div class="price-tag">PRICE 16999 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/1024px-PlayStation_logo.svg.png" alt="PSN Card">
+                </div>
+                <div class="card-details">
+                    <h3>PSN SA 10$</h3>
+                    <p class="price-text">16,999 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
             </div>
-            <div class="card-details">
-                <h3>Netflix 30$ US</h3>
-                <p class="price-text">50,499 د.ع</p>
-                <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+
+            <div class="card" data-product-id="2" data-name="PSN KW 20$" data-price="31029" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/1024px-PlayStation_logo.svg.png">
+                <div class="price-tag">PRICE 31029 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/1024px-PlayStation_logo.svg.png" alt="PSN Card">
+                </div>
+                <div class="card-details">
+                    <h3>PSN KW 20$</h3>
+                    <p class="price-text">31,029 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
             </div>
+
+            <div class="card" data-product-id="3" data-name="Netflix 30$ US" data-price="50499" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1024px-Netflix_2015_logo.svg.png">
+                <div class="price-tag">PRICE 50499 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1024px-Netflix_2015_logo.svg.png" alt="Netflix Card">
+                </div>
+                <div class="card-details">
+                    <h3>Netflix 30$ US</h3>
+                    <p class="price-text">50,499 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+
+            <div class="card" data-product-id="4" data-name="PUBG 600+60 UC" data-price="26500" data-image="https://seeklogo.com/images/P/pubg-mobile-logo-F91A39D0B4-seeklogo.com.png">
+                <div class="price-tag">PRICE 26500 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://seeklogo.com/images/P/pubg-mobile-logo-F91A39D0B4-seeklogo.com.png" alt="PUBG Card">
+                </div>
+                <div class="card-details">
+                    <h3>PUBG 600+60 UC</h3>
+                    <p class="price-text">26,500 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+            
+            <div class="card" data-product-id="5" data-name="iTunes 10$ USD" data-price="16499" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Apple_logo.svg/1024px-Apple_logo.svg.png">
+                <div class="price-tag">PRICE 16499 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Apple_logo.svg/1024px-Apple_logo.svg.png" alt="iTunes Card">
+                </div>
+                <div class="card-details">
+                    <h3>iTunes 10$ USD</h3>
+                    <p class="price-text">16,499 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+
+            <div class="card" data-product-id="6" data-name="Xbox 20$ USD" data-price="28499" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_logo.svg/1024px-Xbox_logo.svg.png">
+                <div class="price-tag">PRICE 28499 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_logo.svg/1024px-Xbox_logo.svg.png" alt="Xbox Card">
+                </div>
+                <div class="card-details">
+                    <h3>Xbox 20$ USD</h3>
+                    <p class="price-text">28,499 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+            
+            <div class="card" data-product-id="7" data-name="Steam 20$ USD" data-price="34099" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/1024px-Steam_icon_logo.svg.png">
+                <div class="price-tag">PRICE 34099 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/1024px-Steam_icon_logo.svg.png" alt="Steam Card">
+                </div>
+                <div class="card-details">
+                    <h3>Steam 20$ USD</h3>
+                    <p class="price-text">34,099 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+            
+            <div class="card" data-product-id="8" data-name="Razer zGold 10$ US" data-price="18499" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Razer_logo.svg/1024px-Razer_logo.svg.png">
+                <div class="price-tag">PRICE 18499 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Razer_logo.svg/1024px-Razer_logo.svg.png" alt="Razer zGold Card">
+                </div>
+                <div class="card-details">
+                    <h3>Razer zGold 10$</h3>
+                    <p class="price-text">18,499 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+
+            <div class="card" data-product-id="9" data-name="iTunes 1500 YEN JAPAN" data-price="31999" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Apple_logo.svg/1024px-Apple_logo.svg.png">
+                <div class="price-tag">PRICE 31999 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Apple_logo.svg/1024px-Apple_logo.svg.png" alt="iTunes Card">
+                </div>
+                <div class="card-details">
+                    <h3>iTunes 1500 YEN JAPAN</h3>
+                    <p class="price-text">31,999 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+            
+            <div class="card" data-product-id="10" data-name="Jawaker Token 4,250" data-price="2489" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Jawaker_Logo.png/640px-Jawaker_Logo.png">
+                <div class="price-tag">PRICE 2489 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Jawaker_Logo.png/640px-Jawaker_Logo.png" alt="Jawaker Token">
+                </div>
+                <div class="card-details">
+                    <h3>Jawaker Token 4,250</h3>
+                    <p class="price-text">2,489 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+            
+            <div class="card" data-product-id="11" data-name="Jawaker Token 32,500" data-price="8309" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Jawaker_Logo.png/640px-Jawaker_Logo.png">
+                <div class="price-tag">PRICE 8309 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Jawaker_Logo.png/640px-Jawaker_Logo.png" alt="Jawaker Token">
+                </div>
+                <div class="card-details">
+                    <h3>Jawaker Token 32,500</h3>
+                    <p class="price-text">8,309 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+            
+            <div class="card" data-product-id="12" data-name="Jawaker Token 70,000" data-price="15629" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Jawaker_Logo.png/640px-Jawaker_Logo.png">
+                <div class="price-tag">PRICE 15629 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Jawaker_Logo.png/640px-Jawaker_Logo.png" alt="Jawaker Token">
+                </div>
+                <div class="card-details">
+                    <h3>Jawaker Token 70,000</h3>
+                    <p class="price-text">15,629 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+            
+            <div class="card" data-product-id="13" data-name="Jawaker Token 150,000" data-price="31209" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Jawaker_Logo.png/640px-Jawaker_Logo.png">
+                <div class="price-tag">PRICE 31209 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Jawaker_Logo.png/640px-Jawaker_Logo.png" alt="Jawaker Token">
+                </div>
+                <div class="card-details">
+                    <h3>Jawaker Token 150,000</h3>
+                    <p class="price-text">31,209 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+            
+            <div class="card" data-product-id="14" data-name="LOL 10 EUR EU WEST" data-price="17497" data-image="https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Riot_Games_logo.svg/1024px-Riot_Games_logo.svg.png">
+                <div class="price-tag">PRICE 17497 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Riot_Games_logo.svg/1024px-Riot_Games_logo.svg.png" alt="LOL Card">
+                </div>
+                <div class="card-details">
+                    <h3>LOL 10 EUR EU WEST</h3>
+                    <p class="price-text">17,497 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+            
+            <div class="card" data-product-id="15" data-name="LOL 20 EUR EU WEST" data-price="35999" data-image="https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Riot_Games_logo.svg/1024px-Riot_Games_logo.svg.png">
+                <div class="price-tag">PRICE 35999 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Riot_Games_logo.svg/1024px-Riot_Games_logo.svg.png" alt="LOL Card">
+                </div>
+                <div class="card-details">
+                    <h3>LOL 20 EUR EU WEST</h3>
+                    <p class="price-text">35,999 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+            
+            <div class="card" data-product-id="16" data-name="Windows 10 Home OEM 1 PC" data-price="79649" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_logo_%282012%29.svg/1024px-Microsoft_logo_%282012%29.svg.png">
+                <div class="price-tag">PRICE 79649 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_logo_%282012%29.svg/1024px-Microsoft_logo_%282012%29.svg.png" alt="Windows 10 Home">
+                </div>
+                <div class="card-details">
+                    <h3>Windows 10 Home OEM 1 PC</h3>
+                    <p class="price-text">79,649 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+            
+            <div class="card" data-product-id="17" data-name="Windows 10 Pro OEM 1 PC" data-price="79649" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_logo_%282012%29.svg/1024px-Microsoft_logo_%282012%29.svg.png">
+                <div class="price-tag">PRICE 79649 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_logo_%282012%29.svg/1024px-Microsoft_logo_%282012%29.svg.png" alt="Windows 10 Pro">
+                </div>
+                <div class="card-details">
+                    <h3>Windows 10 Pro OEM 1 PC</h3>
+                    <p class="price-text">79,649 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+            
+            <div class="card" data-product-id="18" data-name="Windows 11 Home OEM 1 PC" data-price="79649" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_logo_%282012%29.svg/1024px-Microsoft_logo_%282012%29.svg.png">
+                <div class="price-tag">PRICE 79649 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_logo_%282012%29.svg/1024px-Microsoft_logo_%282012%29.svg.png" alt="Windows 11 Home">
+                </div>
+                <div class="card-details">
+                    <h3>Windows 11 Home OEM 1 PC</h3>
+                    <p class="price-text">79,649 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+            
+            <div class="card" data-product-id="19" data-name="Windows 11 Pro OEM 1 PC" data-price="79649" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_logo_%282012%29.svg/1024px-Microsoft_logo_%282012%29.svg.png">
+                <div class="price-tag">PRICE 79649 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_logo_%282012%29.svg/1024px-Microsoft_logo_%282012%29.svg.png" alt="Windows 11 Pro">
+                </div>
+                <div class="card-details">
+                    <h3>Windows 11 Pro OEM 1 PC</h3>
+                    <p class="price-text">79,649 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+            
+            <div class="card" data-product-id="20" data-name="MS Office Pro 2019 (Phone Activation)" data-price="48200" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_logo_%282012%29.svg/1024px-Microsoft_logo_%282012%29.svg.png">
+                <div class="price-tag">PRICE 48200 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_logo_%282012%29.svg/1024px-Microsoft_logo_%282012%29.svg.png" alt="MS Office Pro 2019">
+                </div>
+                <div class="card-details">
+                    <h3>MS Office Pro 2019 (Phone Activation)</h3>
+                    <p class="price-text">48,200 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+            
+            <div class="card" data-product-id="21" data-name="Riot 10 EUR MENA" data-price="18999" data-image="https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Riot_Games_logo.svg/1024px-Riot_Games_logo.svg.png">
+                <div class="price-tag">PRICE 18999 IQD</div>
+                <div class="card-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Riot_Games_logo.svg/1024px-Riot_Games_logo.svg.png" alt="Riot Card">
+                </div>
+                <div class="card-details">
+                    <h3>Riot 10 EUR MENA</h3>
+                    <p class="price-text">18,999 د.ع</p>
+                    <button class="buy-button" onclick="addToCart(this)">أضف للسلة</button>
+                </div>
+            </div>
+            
         </div>
-
-        <!-- جميع البطاقات الجديدة راح تُضاف بنفس الطريقة هنا -->
-        <!-- على سبيل المثال، Steam، PSN، Xbox، Riot، Free Fire، PUBG، Mobile Legends ... إلخ -->
-
     </div>
-</div>
 
-<div id="cart-modal" class="modal">
-    <div class="modal-content">
-        <span class="close-button" id="close-cart-modal">&times;</span>
-        <h2>🧺 سلة مشترياتك</h2>
-        <ul id="cart-items-list"></ul>
-        <p id="empty-cart-message" style="text-align: center; color: #888;">السلة فارغة. يرجى إضافة منتجات.</p>
-        <div class="total-section">
-            <span>المجموع الكلي:</span>
-            <span id="cart-total">0 د.ع</span>
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-cart-x" class="close-button">&times;</span>
+            <h2>سلة المشتريات</h2>
+            <ul id="cart-items-list">
+                </ul>
+            
+            <div class="total-section">
+                <span>الإجمالي:</span>
+                <span id="cart-total">0 د.ع</span>
+            </div>
+            
+            <button id="start-checkout" class="checkout-button">إتمام عملية الدفع</button>
+            <button id="close-cart-modal" class="checkout-button" style="background-color: #555; margin-top: 10px;">إغلاق السلة</button>
         </div>
-        <button class="checkout-button" id="start-checkout" disabled>متابعة الشراء (اضغط هنا)</button>
     </div>
-</div>
 
-<footer class="footer">
-    <p>جميع حقوق المتجر محفوظة لـ **tm62 store** &copy; 2026</p>
-    <div class="footer-links">
-        <a href="https://instagram.com/tm62" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/100px-Instagram_logo_2016.svg.png" alt="Instagram Icon"> Instagram
-        </a>
-        <a href="https://wa.me/9647751434414" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/100px-WhatsApp.svg.png" alt="WhatsApp Icon"> WhatsApp
-        </a> 
-        <a href="https://t.me/anasfiras" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/100px-Telegram_logo.svg.png" alt="Telegram Icon"> Telegram
-        </a>
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content checkout-instructions">
+            <span id="close-checkout-x" class="close-button">&times;</span>
+            <h3>تعليمات الدفع وإتمام الطلب 🟡</h3>
+            <p>يرجى تحويل المبلغ الإجمالي إلى أحد الحسابات التالية لإتمام عملية الشراء:</p>
+            <div class="total-section" style="margin-top: 20px;">
+                <span>المبلغ المطلوب دفعه:</span>
+                <span id="checkout-total" style="color: var(--price-tag-color);">0 د.ع</span>
+            </div>
+            <ul style="margin-top: 15px;">
+                <li>📞 **WhatsApp**: <a href="https://wa.me/9647751434414" target="_blank">+9647751434414</a></li>
+                <li>📸 **Instagram**: <a href="https://instagram.com/tm62" target="_blank">@tm62</a></li>
+                <li>✈️ **Telegram**: <a href="https://t.me/anasfiras" target="_blank">@anasfiras</a></li>
+            </ul>
+            <p style="font-size: 12px; color: #555; text-align: center; margin-top: 20px;">(عند إغلاق هذه النافذة سيتم مسح سلة المشتريات)</p>
+            <button class="checkout-button close-checkout-button" onclick="clearCart(true)">إغلاق ومسح السلة</button>
+        </div>
     </div>
-</footer>
 
-<script>
-    let cart = [];
 
-    function formatPrice(price) { return `${parseInt(price).toLocaleString()} د.ع`; }
-    function calculateCartTotal() { return cart.reduce((total, item) => total + parseInt(item.price), 0); }
+    <footer class="footer">
+        <p>جميع حقوق المتجر محفوظة لـ **tm62** &copy; 2024</p>
+        <div class="footer-links">
+            <a href="https://wa.me/9647751434414" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1024px-WhatsApp.svg.png" alt="WhatsApp Icon">
+                WhatsApp
+            </a>
+            <a href="https://instagram.com/tm62" target="_blank">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1024px-Instagram_icon.png" alt="Instagram Icon">
+                Instagram
+            </a>
+            <a href="https://t.me/anasfiras" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/1024px-Telegram_logo.svg.png" alt="Telegram Icon">
+                Telegram
+            </a>
+        </div>
+    </footer>
 
-    function addToCart(buttonElement) {
-        const cardElement = buttonElement.closest('.card');
-        const itemName = cardElement.getAttribute('data-name');
-        const itemPrice = cardElement.getAttribute('data-price');
-        const productId = cardElement.getAttribute('data-product-id');
+    <script>
+        // -------------------------------------
+        // وظائف السلة (CART LOGIC)
+        // -------------------------------------
 
-        const newItem = { id: Date.now(), productId, name: itemName, price: itemPrice };
-        cart.push(newItem);
-        updateCartUI();
-        modal.style.display = 'block';
-        console.log(`✅ تمت إضافة ${itemName} إلى السلة!`);
-    }
+        // تحميل السلة من التخزين المحلي أو البدء بسلة فارغة
+        let cart = JSON.parse(localStorage.getItem('tm62Cart')) || [];
 
-    function removeItemFromCart(itemId) { cart = cart.filter(item => item.id !== itemId); updateCartUI(); }
-
-    function updateCartUI() {
-        const listElement = document.getElementById('cart-items-list');
-        const totalElement = document.getElementById('cart-total');
-        const countElement = document.getElementById('cart-count');
-        const emptyMessage = document.getElementById('empty-cart-message');
-        const checkoutButton = document.getElementById('start-checkout');
-
-        countElement.innerText = cart.length;
-        listElement.innerHTML = '';
-        if (cart.length === 0) {
-            emptyMessage.style.display = 'block';
-            checkoutButton.disabled = true;
-        } else {
-            emptyMessage.style.display = 'none';
-            checkoutButton.disabled = false;
-            cart.forEach(item => {
-                const li = document.createElement('li');
-                li.innerHTML = `<span class="item-details">${item.name}</span>
-                                <div>
-                                    <span class="remove-item" onclick="removeItemFromCart(${item.id})">حذف</span>
-                                    <span class="item-price">${formatPrice(item.price)}</span>
-                                </div>`;
-                listElement.appendChild(li);
-            });
+        function saveCart() {
+            localStorage.setItem('tm62Cart', JSON.stringify(cart));
         }
-        totalElement.innerText = formatPrice(calculateCartTotal());
-    }
 
-    const modal = document.getElementById('cart-modal');
-    document.getElementById('open-cart-modal').onclick = () => { updateCartUI(); modal.style.display = 'block'; }
-    document.getElementById('close-cart-modal').onclick = () => modal.style.display = 'none';
-    window.onclick = (event) => { if (event.target == modal) modal.style.display = 'none'; }
-    document.getElementById('start-checkout').onclick = () => {
-        const total = calculateCartTotal();
-        if (total === 0) return;
-        modal.style.display = 'none';
-        alert(`💰 إجمالي سعر مشترياتك هو: ${formatPrice(total)} 💰\n\nلإتمام عملية الشراء وتحويل المبلغ، يرجى التواصل معنا عبر:\n📞 WhatsApp: +9647751434414\n📸 Instagram: tm62\n✈️ Telegram: anasfiras\n\nشكراً لثقتكم بـ tm62 store.`);
-    }
+        function formatPrice(price) {
+            // تنسيق الأرقام مع فواصل الآلاف وإضافة العملة (د.ع)
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' د.ع';
+        }
 
-    document.addEventListener('DOMContentLoaded', updateCartUI);
-</script>
+        function calculateCartTotal() {
+            return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+        }
 
+        function addToCart(button) {
+            const card = button.closest('.card');
+            const id = card.getAttribute('data-product-id');
+            const name = card.getAttribute('data-name');
+            const price = parseInt(card.getAttribute('data-price'));
+            const image = card.getAttribute('data-image');
+
+            const existingItem = cart.find(item => item.id === id);
+
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ id, name, price, image, quantity: 1 });
+            }
+
+            saveCart();
+            updateCartUI();
+            alert(`تم إضافة ${name} إلى السلة!`); // إشعار بسيط
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            saveCart();
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartList = document.getElementById('cart-items-list');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
+            const btnCheckout = document.getElementById('start-checkout');
+
+            cartList.innerHTML = ''; // مسح القائمة الحالية
+
+            if (cart.length === 0) {
+                cartList.innerHTML = '<li style="justify-content: center; color: #555;">السلة فارغة حالياً.</li>';
+                cartCount.innerText = '0';
+                cartTotal.innerText = formatPrice(0);
+                btnCheckout.disabled = true;
+            } else {
+                let totalItems = 0;
+                cart.forEach(item => {
+                    totalItems += item.quantity;
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <div>${item.name} (${item.quantity})</div>
+                        <div style="display: flex; align-items: center;">
+                            <span style="font-weight: bold; color: var(--price-tag-color); margin-left: 10px;">${formatPrice(item.price * item.quantity)}</span>
+                            <span class="remove-item" onclick="removeFromCart('${item.id}')">إزالة</span>
+                        </div>
+                    `;
+                    cartList.appendChild(listItem);
+                });
+
+                cartCount.innerText = totalItems;
+                cartTotal.innerText = formatPrice(calculateCartTotal());
+                btnCheckout.disabled = false;
+            }
+        }
+
+        function clearCart(closeCheckout = false) {
+            cart = [];
+            saveCart();
+            updateCartUI();
+            if (closeCheckout) {
+                checkoutModal.style.display = 'none';
+            }
+        }
+
+        // -------------------------------------
+        // وظائف نوافذ MODAL (السلة والدفع)
+        // -------------------------------------
+
+        const cartModal = document.getElementById('cart-modal');
+        const checkoutModal = document.getElementById('checkout-modal');
+        const btnOpenCart = document.getElementById('open-cart-modal');
+        const btnCloseCart = document.getElementById('close-cart-modal');
+        const btnStartCheckout = document.getElementById('start-checkout');
+        const btnCloseCheckout = document.querySelector('.close-checkout-button');
+        const closeCartX = document.getElementById('close-cart-x');
+        const closeCheckoutX = document.getElementById('close-checkout-x');
+
+
+        // فتح نافذة السلة
+        btnOpenCart.onclick = function() {
+            updateCartUI();
+            cartModal.style.display = 'block';
+        }
+
+        // إغلاق نافذة السلة بزر (X)
+        closeCartX.onclick = function() {
+            cartModal.style.display = 'none';
+        }
+
+        // إغلاق نافذة السلة بزر (إغلاق السلة)
+        btnCloseCart.onclick = function() {
+            cartModal.style.display = 'none';
+        }
+
+        // وظيفة بدء عملية الدفع (تفتح نافذة الإرشادات)
+        btnStartCheckout.onclick = function() {
+            const total = calculateCartTotal();
+            if (total === 0) return;
+
+            // 1. إخفاء السلة
+            cartModal.style.display = 'none'; 
+            
+            // 2. تحديث وعرض إجمالي الدفع في نافذة الإرشادات
+            document.getElementById('checkout-total').innerText = formatPrice(total);
+            checkoutModal.style.display = 'block';
+        }
+
+        // إغلاق نافذة إرشادات الدفع (بالزر X)
+        closeCheckoutX.onclick = function() {
+            // عند الإغلاق بواسطة زر (X)، نقوم بمسح السلة
+            clearCart(true); 
+        }
+
+        // إغلاق نافذة إرشادات الدفع (بالزر إغلاق ومسح السلة)
+        // هذا الزر يمسح السلة ويغلق نافذة الدفع (Checkout)
+        // الوظيفة مربوطة بالـ HTML
+        // btnCloseCheckout.onclick = function() {
+        //     clearCart(true); 
+        // }
+
+
+        // إغلاق أي نافذة عند الضغط خارجها
+        window.onclick = function(event) {
+            if (event.target == cartModal) {
+                cartModal.style.display = 'none';
+            } else if (event.target == checkoutModal) {
+                // عند الضغط خارج نافذة الدفع، نقوم بمسح السلة وإغلاق النافذة
+                clearCart(true); 
+            }
+        }
+
+        // تهيئة واجهة المستخدم عند التحميل (يجب أن يتم تحديث السلة عند فتح المتجر)
+        document.addEventListener('DOMContentLoaded', updateCartUI);
+    </script>
 </body>
 </html>
