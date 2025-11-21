@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tm62 store - المتجر الشامل للبطاقات الإلكترونية</title>
+    <style>
+        /* CSS للتنسيق والأناقة - تنسيق الألوان الجديد */
+        :root {
+            --primary-color: #004d40; /* أزرق بحري داكن */
+            --secondary-color: #f0f8ff; /* أزرق ثلجي فاتح */
+            --card-bg: #ffffff;
+            --text-color: #1a1a1a;
+            --success-color: #ffc107; /* ذهبي */
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--secondary-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            text-align: right;
+        }
+
+        /* رأس الصفحة (Header) */
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h1 { margin: 0; font-size: 30px; }
+        .logo span { font-size: 14px; display: block; opacity: 0.8; }
+        .cart-icon { font-size: 24px; cursor: pointer; position: relative; }
+        #cart-count {
+            background-color: #e0f7fa; /* أزرق سماء فاتح */ 
+            color: var(--primary-color); /* نص داكن */
+            border-radius: 50%;
+            padding: 2px 7px; font-size: 12px; position: absolute; top: -10px; right: -10px;
+            font-weight: bold;
+        }
+
+        /* المحتوى الرئيسي */
+        .container {
+            padding: 40px 20px; max-width: 1200px; margin: 0 auto;
+        }
+
+        /* قسم البطاقات والشبكة */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px; margin-top: 30px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .card img {
+            width: 80px; height: 80px; margin-bottom: 15px; border-radius: 50%; 
+            object-fit: contain; 
+        }
+
+        .card h3 { color: var(--primary-color); margin-top: 0; }
+        
+        /* تصميم حقل اختيار الفئة */
+        .price-selector {
+            margin: 15px 0;
+        }
+        
+        .price-selector label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .price-selector select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        
+        .current-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--success-color); /* ذهبي للسعر */
+            margin: 10px 0;
+        }
+
+        .buy-button {
+            background-color: var(--primary-color);
+            color: white; border: none; padding: 10px 20px; border-radius: 6px;
+            cursor: pointer; font-size: 16px; width: 100%; transition: background-color 0.3s;
+        }
+
+        .buy-button:hover { background-color: #00796b; } 
+
+        /* تذييل الصفحة (Footer) لحقوق الملكية */
+        .footer {
+            background-color: var(--primary-color); 
+            color: white; text-align: center;
+            padding: 30px 0; margin-top: 50px;
+        }
+        .footer p { margin: 5px 0; font-size: 14px; }
+        .footer-links { margin-top: 15px; }
+        .footer-links a {
+            color: var(--success-color); 
+            text-decoration: none; margin: 0 15px;
+            font-size: 18px; 
+            transition: color 0.3s;
+        }
+        .footer-links a:hover {
+            color: #ffeb3b; 
+        }
+        .social-icon-text {
+            font-size: 14px; 
+            margin-right: 5px;
+            color: var(--success-color); 
+        }
+        /* تحديد ألوان الأيقونات الأصلية */
+        .icon-instagram { color: #E4405F; } 
+        .icon-whatsapp { color: #25D366; } 
+        .icon-telegram { color: #0088CC; } 
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <h1>tm62 store</h1>
+            <span>جميع حقوق الموقع محفوظة 2026</span>
+        </div>
+        <div class="cart-icon">🛒 <span id="cart-count">0</span></div>
+    </header>
+
+    <div class="container">
+        <h2>اختر فئة البطاقة التي تريدها</h2>
+        
+        <div class="product-grid">
+            
+            <div class="card" data-product-id="1">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/1024px-PlayStation_logo.svg.png" alt="PlayStation Card">
+                <h3>بلاي ستيشن (PSN)</h3>
+                <div class="price-selector">
+                    <label for="ps-select">اختر فئة البطاقة:</label>
+                    <select id="ps-select" onchange="updateDisplayedPrice(1)">
+                        <option value="0" selected disabled>-- اختر قيمة --</option>
+                        <option value="16999">PS SA 10$ (16,999 د.ع)</option> 
+                        <option value="32499">PS SA 20$ (32,499 د.ع)</option>
+                        <option value="16499">PS KW 10$ (16,499 د.ع)</option> 
+                        <option value="31029">PS KW 20$ (31,029 د.ع)</option> 
+                        <option value="21399">PS UK 10£ (21,399 د.ع)</option> 
+                    </select>
+                </div>
+                <div class="current-price" id="price-1">يرجى الاختيار</div>
+                <button class="buy-button" onclick="addToCart(1, 'PlayStation')" disabled id="btn-1">أضف للسلة</button>
+            </div>
+
+            <div class="card" data-product-id="2">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1024px-Netflix_2015_logo.svg.png" alt="Netflix Card">
+                <h3>بطاقة نيتفلكس (US)</h3>
+                <div class="price-selector">
+                    <label for="nf-select">اختر فئة البطاقة:</label>
+                    <select id="nf-select" onchange="updateDisplayedPrice(2)">
+                        <option value="0" selected disabled>-- اختر قيمة --</option>
+                        <option value="27499">15$ (27,499 د.ع)</option> 
+                        <option value="50499">30$ (50,499 د.ع)</option>
+                        <option value="42499">100 SAR (42,499 د.ع)</option>
+                    </select>
+                </div>
+                <div class="current-price" id="price-2">يرجى الاختيار</div>
+                <button class="buy-button" onclick="addToCart(2, 'Netflix')" disabled id="btn-2">أضف للسلة</button>
+            </div>
+
+            <div class="card" data-product-id="3">
+                <img src="https://seeklogo.com/images/P/pubg-mobile-logo-F91A39D0B4-seeklogo.com.png" alt="PUBG Card">
+                <h3>شدات ببجي (UC)</h3>
+                <div class="price-selector">
+                    <label for="pubg-select">اختر فئة الشدات:</label>
+                    <select id="pubg-select" onchange="updateDisplayedPrice(3)">
+                        <option value="0" selected disabled>-- اختر قيمة --</option>
+                        <option value="3000">60 UC (3,000 د.ع)</option>
+                        <option value="12500">300+25 UC (12,500 د.ع)</option>
+                        <option value="26500">600+60 UC (26,500 د.ع)</option> 
+                        <option value="60000">1500+300 UC (60,000 د.ع)</option>
+                    </select>
+                </div>
+                <div class="current-price" id="price-3">يرجى الاختيار</div>
+                <button class="buy-button" onclick="addToCart(3, 'PUBG UC')" disabled id="btn-3">أضف للسلة</button>
+            </div>
+            
+            <div class="card" data-product-id="4">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Apple_Pay_logo.svg/1024px-Apple_Pay_logo.svg.png" alt="iTunes Card">
+                <h3>بطاقة iTunes (آبل)</h3>
+                <div class="price-selector">
+                    <label for="it-select">اختر فئة البطاقة:</label>
+                    <select id="it-select" onchange="updateDisplayedPrice(4)">
+                        <option value="0" selected disabled>-- اختر قيمة --</option>
+                        <option value="4059">2$ USD (4,059 د.ع)</option>
+                        <option value="5579">3$ USD (5,579 د.ع)</option>
+                        <option value="6599">4$ USD (6,599 د.ع)</option>
+                        <option value="8729">5$ USD (8,729 د.ع)</option>
+                        <option value="16499">10$ USD (16,499 د.ع)</option>
+                        <option value="24999">15$ USD (24,999 د.ع)</option>
+                        <option value="31949">20$ USD (31,949 د.ع)</option>
+                        <option value="21899">50 SAR (21,899 د.ع)</option>
+                    </select>
+                </div>
+                <div class="current-price" id="price-4">يرجى الاختيار</div>
+                <button class="buy-button" onclick="addToCart(4, 'iTunes')" disabled id="btn-4">أضف للسلة</button>
+            </div>
+            
+            <div class="card" data-product-id="5">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Blizzard_Entertainment_Logo_2015.svg/1024px-Blizzard_Entertainment_Logo_2015.svg.png" alt="Blizzard Card">
+                <h3>بطاقة بليزارد</h3>
+                <div class="price-selector">
+                    <label for="blz-select">اختر فئة البطاقة:</label>
+                    <select id="blz-select" onchange="updateDisplayedPrice(5)">
+                        <option value="0" selected disabled>-- اختر قيمة --</option>
+                        <option value="41499">20€ EU (41,499 د.ع)</option>
+                        <option value="30998">20$ US (30,998 د.ع)</option>
+                    </select>
+                </div>
+                <div class="current-price" id="price-5">يرجى الاختيار</div>
+                <button class="buy-button" onclick="addToCart(5, 'Blizzard')" disabled id="btn-5">أضف للسلة</button>
+            </div>
+
+            <div class="card" data-product-id="6">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_logo_2022.svg/1024px-Google_Play_Store_logo_2022.svg.png" alt="Google Play Card">
+                <h3>Google Play</h3>
+                <div class="price-selector">
+                    <label for="gp-select">اختر فئة البطاقة:</label>
+                    <select id="gp-select" onchange="updateDisplayedPrice(6)">
+                        <option value="0" selected disabled>-- اختر قيمة --</option>
+                        <option value="5500">5$ (5,500 د.ع)</option>
+                        <option value="11500">10$ (11,500 د.ع)</option>
+                        <option value="23000">20$ (23,000 د.ع)</option>
+                    </select>
+                </div>
+                <div class="current-price" id="price-6">يرجى الاختيار</div>
+                <button class="buy-button" onclick="addToCart(6, 'Google Play')" disabled id="btn-6">أضف للسلة</button>
+            </div>
+
+            <div class="card" data-product-id="7">
+                <img src="https://companieslogo.com/img/orig/RAZER.D-b11877a5.png?t=1654497551" alt="Razer zGold Card">
+                <h3>Razer zGold</h3>
+                <div class="price-selector">
+                    <label for="rzr-select">اختر فئة البطاقة:</label>
+                    <select id="rzr-select" onchange="updateDisplayedPrice(7)">
+                        <option value="0" selected disabled>-- اختر قيمة --</option>
+                        <option value="4019">2$ US (4,019 د.ع)</option>
+                        <option value="8499">5$ US (8,499 د.ع)</option>
+                        <option value="18499">10$ US (18,499 د.ع)</option>
+                    </select>
+                </div>
+                <div class="current-price" id="price-7">يرجى الاختيار</div>
+                <button class="buy-button" onclick="addToCart(7, 'Razer zGold')" disabled id="btn-7">أضف للسلة</button>
+            </div>
+            
+            <div class="card" data-product-id="8">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/1024px-Steam_icon_logo.svg.png" alt="Steam Card">
+                <h3>بطاقة Steam (ستيم)</h3>
+                <div class="price-selector">
+                    <label for="stm-select">اختر فئة البطاقة:</label>
+                    <select id="stm-select" onchange="updateDisplayedPrice(8)">
+                        <option value="0" selected disabled>-- اختر قيمة --</option>
+                        <option value="16499">10$ USD (16,499 د.ع)</option>
+                        <option value="34099">20$ USD (34,099 د.ع)</option>
+                        <option value="9799">5 KWD (9,799 د.ع)</option>
+                        <option value="9799">20 QAR (9,799 د.ع)</option>
+                        <option value="21899">50 SAR (21,899 د.ع)</option>
+                    </select>
+                </div>
+                <div class="current-price" id="price-8">يرجى الاختيار</div>
+                <button class="buy-button" onclick="addToCart(8, 'Steam')" disabled id="btn-8">أضف للسلة</button>
+            </div>
+            
+            <div class="card" data-product-id="9">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Xbox_one_logo.svg/1024px-Xbox_one_logo.svg.png" alt="Xbox Card">
+                <h3>بطاقة Xbox (US/SAR)</h3>
+                <div class="price-selector">
+                    <label for="xbx-select">اختر فئة البطاقة:</label>
+                    <select id="xbx-select" onchange="updateDisplayedPrice(9)">
+                        <option value="0" selected disabled>-- اختر قيمة --</option>
+                        <option value="8399">5$ USD (8,399 د.ع)</option>
+                        <option value="15999">10$ USD (15,999 د.ع)</option>
+                        <option value="28499">20$ USD (28,499 د.ع)</option>
+                        <option value="21599">50 SAR (21,599 د.ع)</option>
+                    </select>
+                </div>
+                <div class="current-price" id="price-9">يرجى الاختيار</div>
+                <button class="buy-button" onclick="addToCart(9, 'Xbox')" disabled id="btn-9">أضف للسلة</button>
+            </div>
+            
+            <div class="card" data-product-id="10">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Riot_Games_logo.svg/1024px-Riot_Games_logo.svg.png" alt="Riot Games Card">
+                <h3>Riot Games (Valorant/LoL)</h3>
+                <div class="price-selector">
+                    <label for="riot-select">اختر فئة البطاقة:</label>
+                    <select id="riot-select" onchange="updateDisplayedPrice(10)">
+                        <option value="0" selected disabled>-- اختر قيمة --</option>
+                        <option value="9499">5€ MENA (9,499 د.ع)</option>
+                        <option value="18727">10€ MENA (18,727 د.ع)</option>
+                        <option value="36299">20€ MENA (36,299 د.ع)</option>
+                    </select>
+                </div>
+                <div class="current-price" id="price-10">يرجى الاختيار</div>
+                <button class="buy-button" onclick="addToCart(10, 'Riot Games')" disabled id="btn-10">أضف للسلة</button>
+            </div>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>جميع حقوق المتجر محفوظة لـ **tm62 store** &copy; 2026</p>
+        <div class="footer-links">
+            <a href="https://instagram.com/tm62" target="_blank">
+                <span class="icon-instagram">📸</span> <span class="social-icon-text">tm62</span>
+            </a>
+            | 
+            <a href="https://wa.me/9647751434414" target="_blank">
+                <span class="icon-whatsapp">🟢</span> <span class="social-icon-text">+9647751434414</span>
+            </a> 
+            |
+            <a href="https://t.me/anasfiras" target="_blank">
+                <span class="icon-telegram">✈️</span> <span class="social-icon-text">anasfiras</span>
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        let cart = []; // مصفوفة لتخزين عناصر السلة
+
+        function formatPrice(price) {
+            return `${parseInt(price).toLocaleString()} د.ع`;
+        }
+
+        // دالة تحديث السعر الظاهر عند اختيار قيمة
+        function updateDisplayedPrice(productId) {
+            const selectIdMap = {
+                1: 'ps-select',
+                2: 'nf-select',
+                3: 'pubg-select',
+                4: 'it-select',
+                5: 'blz-select',
+                6: 'gp-select',
+                7: 'rzr-select',
+                8: 'stm-select',
+                9: 'xbx-select',
+                10: 'riot-select'
+            };
+            
+            const selectElement = document.getElementById(selectIdMap[productId]);
+            const buttonElement = document.getElementById(`btn-${productId}`);
+            const priceElement = document.getElementById(`price-${productId}`);
+
+            const selectedValue = selectElement.value;
+
+            if (selectedValue !== "0") {
+                priceElement.innerText = formatPrice(selectedValue);
+                buttonElement.disabled = false;
+            } else {
+                priceElement.innerText = 'يرجى الاختيار';
+                buttonElement.disabled = true;
+            }
+        }
+
+        // دالة إضافة المنتج للسلة (هذه مجرد واجهة أمامية)
+        function addToCart(productId, productName) {
+            const selectIdMap = {
+                1: 'ps-select',
+                2: 'nf-select',
+                3: 'pubg-select',
+                4: 'it-select',
+                5: 'blz-select',
+                6: 'gp-select',
+                7: 'rzr-select',
+                8: 'stm-select',
+                9: 'xbx-select',
+                10: 'riot-select'
+            };
+
+            const selectElement = document.getElementById(selectIdMap[productId]);
+            const selectedText = selectElement.options[selectElement.selectedIndex].text;
+            const itemValue = selectElement.value;
+            
+            if (itemValue === "0") {
+                alert("الرجاء اختيار فئة البطاقة أولاً.");
+                return;
+            }
+            
+            cart.push({ id: productId, name: productName, price: itemValue, selection: selectedText });
+            document.getElementById('cart-count').innerText = cart.length;
+            
+            alert(`تمت إضافة ${productName} - ${selectedText} إلى سلة المشتريات! (الآن ينتقل العميل لصفحة الدفع)`);
+            
+            // ⚠️ ملاحظة مهمة للمطور:
+            // هنا يجب أن يتم إرسال بيانات (itemValue) إلى نظام الخلفية (Backend) لتأمين عملية الدفع وإرسال الإشعار إليك.
+            console.log("Cart Status:", cart);
+        }
+    </script>
+</body>
+</html>
